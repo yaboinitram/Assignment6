@@ -22,12 +22,15 @@ public class Assignment6{
         System.out.println("here's your array");
         printArray(MyArray);
         
+        //takes earlier input and applies sort algo
         switch(sortInput){
             case 1: 
                 System.out.println("Insertion Sort");
+                sortingAlgos.insertionSort(MyArray);
                 break;
             case 2:
                 System.out.println("Shell Sort");
+                sortingAlgos.shellSort(MyArray);
                 break;
             case 3:
                 System.out.println("Merge Sort");
@@ -43,7 +46,6 @@ public class Assignment6{
 
 
         
-        //loop number of times for size of array
     
     }
     //array printing function
@@ -58,22 +60,41 @@ public class Assignment6{
             
     }
     public class sortingAlgos {
-        /* Function to sort array using insertion sort */
-        void insertionSort(int arr[])
-        {
+        // Insertion sort function 
+        static void insertionSort(int arr[]){
             int n = arr.length;
-            for (int i = 1; i < n; ++i) {
-                int key = arr[i];
+            for (int i = 1; i < n; i++) {
+                // holds current value before replacing it
+                int numHolder = arr[i];
+                System.out.println("now sorting " + numHolder);
                 int j = i - 1;
     
-                /* Move elements of arr[0..i-1], that are
-                   greater than key, to one position ahead
-                   of their current position */
-                while (j >= 0 && arr[j] > key) {
+                // move elements grater than numHolder one position to the right
+                while (j >= 0 && arr[j] > numHolder) {
                     arr[j + 1] = arr[j];
-                    j = j - 1;
+                    j--;
+                    printArray(arr);
                 }
-                arr[j + 1] = key;
+                arr[j + 1] = numHolder;
+                printArray(arr);
+            }
+        }
+        //Shell sort function
+        static void shellSort(int arr[]){
+            int n = arr.length;
+            for (int gap = n/2; gap > 0; gap /= 2)
+            {
+                for (int i = gap; i < n; i ++)
+                {
+                    int temp = arr[i];
+                    System.out.print("gap size "+ gap);
+                    System.out.println("sorting "+ temp);
+                    int j;
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                        arr[j] = arr[j - gap];
+                    arr[j] = temp;
+                    printArray(arr);
+                }
             }
         }
     }
